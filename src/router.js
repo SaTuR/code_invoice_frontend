@@ -9,8 +9,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    component: () => import(/* webpackChunkName: "home" */ "./views/home")
-    // redirect: `${adminRoot}/piaf`,
+    component: () => import(/* webpackChunkName: "home" */ "./views/home"),
+    redirect: `${adminRoot}/dashboards`
   },
   {
     path: adminRoot,
