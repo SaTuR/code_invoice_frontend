@@ -113,8 +113,11 @@
               </div>
             </div>
             <div class="float-md-right pt-1">
-              <span class="text-muted text-small mr-1 mb-2"
+              <!-- <span class="text-muted text-small mr-1 mb-2"
                 >{{ from }}-{{ to }} of {{ rows }}</span
+              > -->
+              <span class="text-muted text-small mr-1 mb-2"
+                >Total : {{ rows }}</span
               >
               <b-dropdown
                 id="ddown2"
