@@ -21,7 +21,7 @@
       >
         <mobile-menu-icon />
       </a>
-      <div
+      <!-- <div
         :class="{ search: true, 'mobile-view': isMobileSearch }"
         ref="searchContainer"
         @mouseenter="isSearchOver = true"
@@ -35,7 +35,7 @@
         <span class="search-icon" @click="searchClick">
           <i class="simple-icon-magnifier"></i>
         </span>
-      </div>
+      </div> -->
       <div class="d-inline-block">
         <b-dropdown
           id="langddm"
