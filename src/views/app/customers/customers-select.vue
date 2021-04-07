@@ -12,39 +12,6 @@
             :to="{ path: 'customers-add' }"
             >{{ $t("pages.add-new") }}</b-button
           >
-          <!-- <b-button-group>
-            <b-dropdown
-              split
-              right
-              @click="selectAll(true)"
-              class="check-button"
-              variant="primary"
-            >
-              <label
-                class="custom-control custom-checkbox pl-4 mb-0 d-inline-block"
-                slot="button-content"
-              >
-                <input
-                  class="custom-control-input"
-                  type="checkbox"
-                  :checked="isSelectedAll"
-                  v-shortkey="{ select: ['ctrl', 'a'], undo: ['ctrl', 'd'] }"
-                  @shortkey="keymap"
-                />
-                <span
-                  :class="{
-                    'custom-control-label': true,
-                    indeterminate: isAnyItemSelected,
-                  }"
-                  >&nbsp;</span
-                >
-              </label>
-              <b-dropdown-item>{{ $t("pages.delete") }}</b-dropdown-item>
-              <b-dropdown-item>{{
-                $t("pages.another-action")
-              }}</b-dropdown-item>
-            </b-dropdown>
-          </b-button-group> -->
         </div>
         <piaf-breadcrumb :heading="$t('menu.customers')" />
         <div class="mb-2 mt-2">
@@ -57,35 +24,6 @@
             <i class="simple-icon-arrow-down align-middle" />
           </b-button>
           <b-collapse id="displayOptions" class="d-md-block">
-            <span class="mr-3 d-inline-block float-md-left">
-              <a
-                :class="{
-                  'mr-2 view-icon': true,
-                  active: displayMode === 'list',
-                }"
-                @click="changeDisplayMode('list')"
-              >
-                <data-list-icon />
-              </a>
-              <a
-                :class="{
-                  'mr-2 view-icon': true,
-                  active: displayMode === 'thumb',
-                }"
-                @click="changeDisplayMode('thumb')"
-              >
-                <thumb-list-icon />
-              </a>
-              <a
-                :class="{
-                  'mr-2 view-icon': true,
-                  active: displayMode === 'image',
-                }"
-                @click="changeDisplayMode('image')"
-              >
-                <image-list-icon />
-              </a>
-            </span>
             <div class="d-block d-md-inline-block pt-1">
               <b-dropdown
                 id="ddown1"
@@ -105,17 +43,10 @@
               <div
                 class="search-sm d-inline-block float-md-left mr-1 align-top"
               >
-                <!-- <b-input
-                  :placeholder="$t('menu.search')"
-                  @input="(val) => searchChange(val)"
-                /> -->
                 <b-input :placeholder="$t('menu.search')" v-model="filter" />
               </div>
             </div>
             <div class="float-md-right pt-1">
-              <!-- <span class="text-muted text-small mr-1 mb-2"
-                >{{ from }}-{{ to }} of {{ rows }}</span
-              > -->
               <span class="text-muted text-small mr-1 mb-2"
                 >Total : {{ rows }}</span
               >
@@ -148,9 +79,19 @@
             striped
             :per-page="perPage"
             :items="posts"
+            :fields="fields"
             :filter="filter"
             :current-page="currentPage"
-          ></b-table>
+          >
+            <template v-slot:cell(actions)="data">
+              <b-button variant="primary" @click="deleteItem(data.item.id)"
+                >Edit</b-button
+              >
+              <b-button variant="danger" @click="deleteItem(data.item.id)"
+                >Delete</b-button
+              >
+            </template>
+          </b-table>
           <b-pagination
             ref="pagination"
             align="center"
@@ -166,18 +107,7 @@
 </template>
 
 <script>
-import {
-  DataListIcon,
-  ThumbListIcon,
-  ImageListIcon,
-} from "../../../components/Svg";
 export default {
-  components: {
-    "data-list-icon": DataListIcon,
-    "thumb-list-icon": ThumbListIcon,
-    "image-list-icon": ImageListIcon,
-    // "add-new-modal": AddNewModal
-  },
   computed: {
     rows() {
       return this.posts.length;
@@ -185,6 +115,7 @@ export default {
   },
   data() {
     return {
+      fields: ["userId", "id", "title", "actions"],
       filter: "",
       perPage: 4,
       currentPage: 1,
@@ -192,7 +123,7 @@ export default {
         {
           userId: 1,
           id: 1,
-          title: "sunt aut facere repellat provident occaecati",
+          title: "satur sunt aut facere repellat provident occaecati",
         },
         {
           userId: 1,
@@ -205,7 +136,6 @@ export default {
           title: "ea molestias quasi exercitationem repellat qui",
         },
       ],
-      title: "Mantetimiento de Clientes",
       selectAll: "",
       isSelectedAll: "",
       isAnyItemSelected: "",
@@ -219,7 +149,6 @@ export default {
       from: "",
       to: "",
       total: "",
-      // perPage: 4,
       sortOptions: [
         {
           column: "title",
@@ -234,7 +163,7 @@ export default {
           label: "Status",
         },
       ],
-      pageSizes: [1, 4, 8, 12],
+      pageSizes: [4, 8, 12],
     };
   },
   methods: {
