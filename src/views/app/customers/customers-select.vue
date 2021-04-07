@@ -77,12 +77,19 @@
           <b-table
             ref="datos"
             striped
+            :busy="isBusy"
             :per-page="perPage"
             :items="posts"
             :fields="fields"
             :filter="filter"
             :current-page="currentPage"
           >
+            <template #table-busy>
+              <div class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+              </div>
+            </template>
             <template v-slot:cell(actions)="data">
               <b-button variant="primary" @click="deleteItem(data.item.id)"
                 >Edit</b-button
@@ -115,6 +122,8 @@ export default {
   },
   data() {
     return {
+      isBusy: true,
+      selected: [],
       fields: ["userId", "id", "title", "actions"],
       filter: "",
       perPage: 4,
@@ -136,19 +145,8 @@ export default {
           title: "ea molestias quasi exercitationem repellat qui",
         },
       ],
-      selectAll: "",
-      isSelectedAll: "",
-      isAnyItemSelected: "",
-      keymap: "",
-      displayMode: "",
-      changeDisplayMode: "",
       changeOrderBy: "",
-      // changePageSize: "",
       sort: "",
-      searchChange: "",
-      from: "",
-      to: "",
-      total: "",
       sortOptions: [
         {
           column: "title",
@@ -171,6 +169,11 @@ export default {
       this.perPage = perPage;
       this.$refs.datos.$forceUpdate();
     },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isBusy = false;
+    }, 1000);
   },
 };
 </script>
