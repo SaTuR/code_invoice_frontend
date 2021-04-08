@@ -26,6 +26,7 @@ const routes = [
         path: "dashboards",
         component: () => import("./views/app/dashboards"),
         redirect: `${adminRoot}/dashboards/default`,
+        roles: [UserRole.Admin, UserRole.Editor],
         children: [
           {
             path: "default",
@@ -36,12 +37,14 @@ const routes = [
       },
       {
         path: "settings",
-        component: () => import("./views/app/settings")
+        component: () => import("./views/app/settings"),
+        meta: { roles: [UserRole.Admin] }
       },
       {
         path: "customers",
         component: () => import("./views/app/customers"),
         redirect: `${adminRoot}/customers/customers-select`,
+        roles: [UserRole.Admin, UserRole.Editor],
         children: [
           {
             path: "customers-select",
@@ -61,6 +64,7 @@ const routes = [
         path: "categories",
         component: () => import("./views/app/categories"),
         redirect: `${adminRoot}/categories/categories-select`,
+        roles: [UserRole.Admin, UserRole.Editor],
         children: [
           {
             path: "categories-select",
@@ -80,6 +84,7 @@ const routes = [
         path: "products",
         component: () => import("./views/app/products"),
         redirect: `${adminRoot}/products/products-select`,
+        roles: [UserRole.Admin, UserRole.Editor],
         children: [
           {
             path: "products-select",

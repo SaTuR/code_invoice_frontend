@@ -32,7 +32,7 @@ export const currentUser = {
   title: "Gretta Cordova",
   img: "/assets/img/profiles/l-1.jpg",
   date: "Last seen today 15:24",
-  role: UserRole.Admin
+  role: UserRole.Editor
 };
 
 export const isAuthGuardActive = true;

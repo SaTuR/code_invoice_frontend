@@ -103,13 +103,6 @@
             >{{ $t("forms.prev") }}</b-button
           >
         </b-form>
-        <vuetable
-          ref="vuetable"
-          api-url="https://vuetable.ratiw.net/api/users"
-          :fields="['name', 'nickname', 'email', 'gender']"
-          data-path=""
-          pagination-path=""
-        ></vuetable>
       </b-colxx>
     </b-row>
   </div>
@@ -118,11 +111,7 @@
 <script>
 import { tipo_producto, iva, ice, irbpnr } from "../../../data/sri.js";
 const { required, numeric } = require("vuelidate/lib/validators");
-import Vuetable from "vuetable-2";
 export default {
-  components: {
-    Vuetable,
-  },
   data() {
     return {
       tipo_producto: tipo_producto,

@@ -35,13 +35,13 @@ const data = [
     to: `${adminRoot}/products`,
     subs: [
       {
-        icon: "simple-icon-paper-plane",
+        icon: "iconsminds-box-with-folders",
         label: "menu.categories",
         to: `${adminRoot}/categories/`
         // roles: [UserRole.Admin, UserRole.Editor],
       },
       {
-        icon: "simple-icon-paper-plane",
+        icon: "iconsminds-box-close",
         label: "menu.products",
         to: `${adminRoot}/products/products-select`
         // roles: [UserRole.Admin, UserRole.Editor],
