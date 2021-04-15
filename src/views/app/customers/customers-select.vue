@@ -113,37 +113,24 @@
 </template>
 
 <script>
+import axios from "axios";
+import { apiUrl } from "../../../constants/config";
 export default {
   computed: {
     rows() {
       return this.posts.length;
     },
   },
+  mounted() {},
   data() {
     return {
       isBusy: true,
       selected: [],
-      fields: ["userId", "id", "title", "actions"],
+      fields: ["id_cliente", "nombre", "email", "actions"],
       filter: "",
       perPage: 4,
       currentPage: 1,
-      posts: [
-        {
-          userId: 1,
-          id: 1,
-          title: "satur sunt aut facere repellat provident occaecati",
-        },
-        {
-          userId: 1,
-          id: 2,
-          title: "qui est esse",
-        },
-        {
-          userId: 1,
-          id: 3,
-          title: "ea molestias quasi exercitationem repellat qui",
-        },
-      ],
+      posts: [],
       changeOrderBy: "",
       sort: "",
       sortOptions: [
@@ -160,7 +147,7 @@ export default {
           label: "Status",
         },
       ],
-      pageSizes: [4, 8, 12],
+      pageSizes: [1, 4, 8, 12],
     };
   },
   methods: {
@@ -170,9 +157,10 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => {
+    axios.get(apiUrl + "/clientes/").then((response) => {
+      this.posts = response.data;
       this.isBusy = false;
-    }, 1000);
+    });
   },
 };
 </script>

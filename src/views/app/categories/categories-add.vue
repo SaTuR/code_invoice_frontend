@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import { apiUrl } from "../../../constants/config";
 const { required, email, numeric } = require("vuelidate/lib/validators");
 
 export default {
@@ -72,7 +74,19 @@ export default {
   methods: {
     onValitadeFormSubmit() {
       this.$v.$touch();
-      console.log(this.category);
+      axios.post(apiUrl + "/categorias/", this.category).then((response) => {
+        this.category.nombre = null;
+        this.category.estado = false;
+        this.$notify(
+          "success filled",
+          "Categoria ",
+          "Registro ingresado con exito",
+          {
+            duration: 3000,
+            permanent: false,
+          }
+        );
+      });
     },
   },
 };

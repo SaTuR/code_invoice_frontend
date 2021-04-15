@@ -113,6 +113,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import { apiUrl } from "../../../constants/config";
 export default {
   computed: {
     rows() {
@@ -123,27 +125,11 @@ export default {
     return {
       isBusy: true,
       selected: [],
-      fields: ["userId", "id", "title", "actions"],
+      fields: ["id_producto", "nombre", "tipo", "valor", "actions"],
       filter: "",
       perPage: 4,
       currentPage: 1,
-      posts: [
-        {
-          userId: 1,
-          id: 1,
-          title: "satur sunt aut facere repellat provident occaecati",
-        },
-        {
-          userId: 1,
-          id: 2,
-          title: "qui est esse",
-        },
-        {
-          userId: 1,
-          id: 3,
-          title: "ea molestias quasi exercitationem repellat qui",
-        },
-      ],
+      posts: [],
       changeOrderBy: "",
       sort: "",
       sortOptions: [
@@ -170,9 +156,10 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => {
+    axios.get(apiUrl + "/productos/").then((response) => {
+      this.posts = response.data;
       this.isBusy = false;
-    }, 1000);
+    });
   },
 };
 </script>
